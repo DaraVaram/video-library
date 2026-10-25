@@ -283,6 +283,9 @@ footer.site {
 footer.site a { color: var(--slate); text-decoration: none; }
 footer.site a:hover { color: var(--accent); }
 
+/* the visitor map: rendered (so the visit is logged) but invisible */
+.visitor-widget { position: fixed; right: 0; bottom: 0; width: 1px; height: 1px; overflow: hidden; opacity: 0; pointer-events: none; z-index: -1; }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }

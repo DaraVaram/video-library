@@ -18,4 +18,5 @@ A video can also play from another site: the full PCD and FedPCD videos play fro
 URL as `src` and its length in seconds as `seconds`; a local video's length is read from the file.
 
 GitHub Pages serves the `main` branch as it is (`.nojekyll`, no build on GitHub). GitHub refuses files over
-100 MB and warns above 50 MB.
+100 MB and warns above 50 MB. External requests: Google Fonts, and a hidden visitor-map counter
+(visitormap.workers.dev) on every page.

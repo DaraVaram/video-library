@@ -24,6 +24,10 @@ FONTS = ("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600&fa
 FAVICON = ("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' "
            "height='32' rx='8' fill='%236A1B9A'/%3E%3Cpath d='M12.5 9.5v13l10-6.5z' fill='%23FCFBFD'/%3E%3C/svg%3E")
 ARROW = '<svg class="ext" viewBox="0 0 12 12" aria-hidden="true"><path d="M3.5 8.5l5-5M4.5 3.5h4v4"/></svg>'
+# the visitor map, as on the PCD and FedPCD pages: rendered (so the visit is logged) but invisible
+VISITOR_MAP = """<div class="visitor-widget" aria-hidden="true">
+<script type="text/javascript" id="mapmyvisitors" src="https://visitormap.visitormap.workers.dev/map.js?d=vQcILETVswZfTonNsgaogfZ0&cl=171221&co=0e0b13&ct=a79bbd&w=a"></script>
+</div>"""
 
 
 def e(text) -> str:
@@ -159,6 +163,7 @@ def index(lib: dict) -> str:
   </main>
 {footer(site)}
 </div>
+{VISITOR_MAP}
 <script src="{asset("library.js")}"></script>
 </body>
 </html>
@@ -230,6 +235,7 @@ def page(lib: dict, i: int) -> str:
   <nav class="pager" aria-label="More papers">{prev}{nxt}</nav>
 {footer(site)}
 </div>
+{VISITOR_MAP}
 <script src="../{asset("library.js")}"></script>
 </body>
 </html>

@@ -1,0 +1,155 @@
+{
+  "site": {
+    "title": "Video Library",
+    "owner": "Dara Varam",
+    "owner_url": "https://daravaram.github.io/",
+    "url": "https://daravaram.github.io/video-library/",
+    "intro": "Narrated explainers of research papers. Each paper comes in three cuts: the full video, a one-minute short and a 90-second phone video. Watch one, then read the paper."
+  },
+  "papers": [
+    {
+      "slug": "pcd",
+      "name": "Priority-Constrained Descent (PCD)",
+      "title": "Not All Objectives Are Born Equal: Priority-Constrained Descent for Hierarchical Multi-Objective Optimization",
+      "authors": ["Dara Varam", "Mohamed I. AlHajri"],
+      "venue": "Transactions on Machine Learning Research (TMLR)",
+      "venue_short": "TMLR",
+      "year": 2026,
+      "links": [
+        {"label": "Paper", "url": "https://openreview.net/forum?id=HT01yGHLEt"},
+        {"label": "arXiv", "url": "https://arxiv.org/abs/2606.29521"},
+        {"label": "Project page", "url": "https://daravaram.github.io/PCD/"},
+        {"label": "Code", "url": "https://github.com/DaraVaram/priority-constrained-descent"}
+      ],
+      "abstract": "Deep learning problems rarely involve objectives that are equal in importance. A primary objective defines the goal, whilst secondary objectives, such as sparsity, compression, or robustness constrain the solution. While existing multi-objective methods have proven effective in practice, they have a clear symmetry problem and neglect the inherent objective hierarchy built into these objective spaces. We introduce Priority-Constrained Descent (PCD), a gradient-based optimization framework designed to explicitly exploit hierarchical objective structures. PCD preserves the direction of primary descent whilst allowing for the minimal distortion necessary to guarantee progress on secondary objectives, controlled by a single τ ∈ [0, 1] that dictates the strength of the distortion. The resulting formulation is invariant to objective scaling and admits exact closed-form solutions for problems with two and three objectives. We evaluate PCD within structured network compression settings, unstructured sparsity and low-rankness, and across a variety of synthetic experiments, showing Pareto dominance and better per-objective performance with secondary progress guarantees over existing methods, further exhibiting the interpretable trade-off that τ provides.",
+      "bibtex": "@article{varam2026pcd,\n  title         = {Not All Objectives Are Born Equal: Priority-Constrained\n                   Descent for Hierarchical Multi-Objective Optimization},\n  author        = {Varam, Dara and AlHajri, Mohamed I.},\n  journal       = {Transactions on Machine Learning Research},\n  issn          = {2835-8856},\n  year          = {2026},\n  url           = {https://openreview.net/forum?id=HT01yGHLEt},\n  eprint        = {2606.29521},\n  archivePrefix = {arXiv},\n  primaryClass  = {cs.LG}\n}",
+      "videos": {
+        "full": {
+          "src": "https://daravaram.github.io/PCD/assets/pcd-video.mp4",
+          "captions": "https://daravaram.github.io/PCD/assets/pcd-video.vtt",
+          "poster": "videos/pcd/full.jpg",
+          "seconds": 496.6
+        },
+        "short": {"src": "videos/pcd/short.mp4", "captions": "videos/pcd/short.vtt", "poster": "videos/pcd/short.jpg"},
+        "phone": {"src": "videos/pcd/phone.mp4", "poster": "videos/pcd/phone.jpg"}
+      },
+      "chapters": []
+    },
+    {
+      "slug": "fedpcd",
+      "name": "FedPCD",
+      "title": "FedPCD: Priority-Constrained Federated Aggregation",
+      "authors": ["Yousef Irshaid", "Dara Varam", "Mohamed I. AlHajri"],
+      "venue": "arXiv preprint",
+      "venue_short": "arXiv",
+      "year": 2026,
+      "links": [
+        {"label": "arXiv", "url": "https://arxiv.org/abs/2610.13508"},
+        {"label": "Project page", "url": "https://daravaram.github.io/FedPCD/"}
+      ],
+      "abstract": "Federated learning (FL) seeks to optimize a shared global model from decentralized client data. While effective for average performance, this process can produce unfair performance across clients, particularly under statistically heterogeneous data distributions. Existing fairness-aware and multi-objective FL methods address this through client re-weighting, gradient correction, or common-descent formulations, but often change the global optimization direction or treat client objectives symmetrically. We propose FedPCD, a priority-constrained federated optimization framework that separates the global optimization objective from client protection. FedPCD preserves the conventional federated aggregate as the primary objective, while allowing only the minimum correction necessary to meet client performance constraints. Across heterogeneous FL benchmarks, FedPCD consistently outperforms state-of-the-art baselines, achieving the highest global accuracy across all configurations and leading worst-10% client accuracy in nearly all. FedPCD further preserves competitive trade-offs between global accuracy and client performance variability. Beyond this trade-off, FedPCD demonstrates faster empirical convergence, reaching matching or superior performance in substantially fewer communication rounds.",
+      "bibtex": "@misc{irshaid2026fedpcd,\n  title         = {{FedPCD}: Priority-Constrained Federated Aggregation},\n  author        = {Irshaid, Yousef and Varam, Dara and AlHajri, Mohamed I.},\n  year          = {2026},\n  eprint        = {2610.13508},\n  archivePrefix = {arXiv},\n  primaryClass  = {cs.LG},\n  url           = {https://arxiv.org/abs/2610.13508}\n}",
+      "videos": {
+        "full": {
+          "src": "https://daravaram.github.io/FedPCD/assets/fedpcd-video.mp4",
+          "captions": "https://daravaram.github.io/FedPCD/assets/fedpcd-video.vtt",
+          "poster": "videos/fedpcd/full.jpg",
+          "seconds": 635.4
+        },
+        "short": {"src": "videos/fedpcd/short.mp4", "captions": "videos/fedpcd/short.vtt", "poster": "videos/fedpcd/short.jpg"},
+        "phone": {"src": "videos/fedpcd/phone.mp4", "poster": "videos/fedpcd/phone.jpg"}
+      },
+      "chapters": [
+        ["0:12", "FedAvg"],
+        ["0:45", "Clients left behind"],
+        ["1:21", "Existing fairness methods"],
+        ["2:03", "From PCD to FedPCD"],
+        ["2:33", "The constrained program"],
+        ["3:30", "The tolerance τ"],
+        ["4:04", "Client history"],
+        ["4:45", "History in action"],
+        ["5:20", "Guarantees"],
+        ["6:08", "The algorithm"],
+        ["6:33", "Accuracy"],
+        ["7:44", "Fairness"],
+        ["8:54", "Convergence"],
+        ["9:26", "What matters"]
+      ]
+    },
+    {
+      "slug": "vit-class-separation",
+      "name": "Class Separation Dynamics in Vision Transformers",
+      "title": "Class Separation Dynamics in Vision Transformers: An Empirical Study",
+      "authors": ["Dara Varam", "Lujain Khalil", "Mahmoud Darwish", "Mohamed I. AlHajri"],
+      "venue": "IEEE Access",
+      "venue_short": "IEEE Access",
+      "year": 2025,
+      "links": [
+        {"label": "Paper", "url": "https://doi.org/10.1109/ACCESS.2025.3602733"},
+        {"label": "Code", "url": "https://github.com/DaraVaram/vit-data-separation"}
+      ],
+      "abstract": "Vision Transformers (ViTs) have emerged in recent years as a powerful architecture for image classification tasks and beyond. However, due to their black-box nature, our understanding of their learning dynamics is minimal. In this work, we study ViT learning dynamics through the lens of class separation, tracking inter- and intra-class structure, propagating from the patch-embedding layer to the classifier head. Across four datasets and extensive hyper-parameter configurations, we characterize two primary regularities. Firstly, we observe a layer-wise consistency, where separation fuzziness spikes between the input projection and the first transformer block, then decays exponentially with depth. Secondly, provided that the first law holds, fuzziness at the final layer also decays exponentially as a function of the training epochs. The persistence of these laws across datasets and hyper-parameters suggests an intrinsic relationship to ViT training. Our study supplies a quantitative foundation for interpreting the design of transformer-based vision models. Code and reproducibility scripts are available through https://github.com/DaraVaram/vit-data-separation",
+      "bibtex": "@article{varam2025class,\n  title   = {Class Separation Dynamics in Vision Transformers: An Empirical Study},\n  author  = {Varam, Dara and Khalil, Lujain and Darwish, Mahmoud and AlHajri, Mohamed I.},\n  journal = {IEEE Access},\n  volume  = {13},\n  pages   = {153651--153670},\n  year    = {2025},\n  doi     = {10.1109/ACCESS.2025.3602733}\n}",
+      "videos": {
+        "full": {"src": "videos/vit-class-separation/full.mp4", "captions": "videos/vit-class-separation/full.vtt", "poster": "videos/vit-class-separation/full.jpg"},
+        "short": {"src": "videos/vit-class-separation/short.mp4", "captions": "videos/vit-class-separation/short.vtt", "poster": "videos/vit-class-separation/short.jpg"},
+        "phone": {"src": "videos/vit-class-separation/phone.mp4", "poster": "videos/vit-class-separation/phone.jpg"}
+      },
+      "chapters": [
+        ["0:00", "Title"],
+        ["0:15", "The question"],
+        ["0:41", "A law for other networks"],
+        ["1:10", "Within and between"],
+        ["1:32", "Separation fuzziness"],
+        ["1:58", "The experiments"],
+        ["2:39", "Law 1: Spike-Decay"],
+        ["3:28", "Across settings"],
+        ["4:09", "From the first epoch"],
+        ["4:26", "Law 2: the last layer"],
+        ["4:57", "How firmly they hold"],
+        ["5:38", "How fast"],
+        ["6:25", "Attention"],
+        ["6:51", "Where the laws break"],
+        ["7:30", "Why they break"],
+        ["8:15", "Takeaway"]
+      ]
+    },
+    {
+      "slug": "spectrum-sensing",
+      "name": "Cognitive Radio Spectrum Sensing on the Edge",
+      "title": "Cognitive Radio Spectrum Sensing on the Edge: A Quantization-Aware Deep Learning Approach",
+      "authors": ["Hamza A. Abushahla", "Dara Varam", "Mohamed I. AlHajri"],
+      "venue": "IEEE Communications Letters",
+      "venue_short": "IEEE Commun. Lett.",
+      "year": 2025,
+      "links": [
+        {"label": "Paper", "url": "https://doi.org/10.1109/LCOMM.2025.3582680"},
+        {"label": "Code", "url": "https://github.com/7abushahla/Spectrum-Sensing-QAT"}
+      ],
+      "abstract": "Wideband spectrum sensing demands ultra-low latency and high accuracy to detect spectrum holes, yet deploying deep learning (DL)-based models on resource-constrained edge devices is challenging due to high computational costs. This letter proposes quantization-aware training (QAT) to optimize DL-based spectrum sensing models for low-power, low-memory deployment with fast inference. Using a hardware-oriented approach and data-driven quantization scaling, the models retain near-identical performance across varying signal-to-noise ratio (SNR) levels. Real-time deployment on the Sony Spresense shows 72% model size reduction, 51% faster inference, and 7% lower power consumption, confirming the feasibility of QAT-optimized models for spectrum sensing on the edge.",
+      "bibtex": "@article{abushahla2025spectrum,\n  title   = {Cognitive Radio Spectrum Sensing on the Edge: A Quantization-Aware\n             Deep Learning Approach},\n  author  = {Abushahla, Hamza A. and Varam, Dara and AlHajri, Mohamed I.},\n  journal = {IEEE Communications Letters},\n  volume  = {29},\n  number  = {8},\n  pages   = {1988--1992},\n  year    = {2025},\n  doi     = {10.1109/LCOMM.2025.3582680}\n}",
+      "videos": {
+        "full": {"src": "videos/spectrum-sensing/full.mp4", "captions": "videos/spectrum-sensing/full.vtt", "poster": "videos/spectrum-sensing/full.jpg"},
+        "short": {"src": "videos/spectrum-sensing/short.mp4", "captions": "videos/spectrum-sensing/short.vtt", "poster": "videos/spectrum-sensing/short.jpg"},
+        "phone": {"src": "videos/spectrum-sensing/phone.mp4", "poster": "videos/spectrum-sensing/phone.jpg"}
+      },
+      "chapters": [
+        ["0:00", "Title"],
+        ["0:16", "Spectrum holes"],
+        ["0:47", "The sensing problem"],
+        ["1:27", "Too heavy for the edge"],
+        ["2:04", "Eight-bit numbers"],
+        ["2:38", "Quantization-aware training"],
+        ["3:14", "Hardware-friendly models"],
+        ["3:45", "Two datasets"],
+        ["4:23", "The input range"],
+        ["5:17", "Accuracy"],
+        ["5:55", "Across noise levels"],
+        ["6:35", "On the device"],
+        ["6:59", "The largest gains"],
+        ["7:36", "Normalization overhead"],
+        ["7:57", "Takeaway"]
+      ]
+    }
+  ]
+}

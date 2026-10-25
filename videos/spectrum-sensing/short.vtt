@@ -1,0 +1,33 @@
+WEBVTT
+
+1
+-1:59:59,990 --> 00:00:07.328
+Cognitive radios hunt for free channels across a wide band, and deep networks find them well from raw I/Q samples.
+
+2
+00:00:06.913 --> 00:00:14.436
+But stored as thirty-two-bit floats, these networks are too heavy for the small, low-power devices many radios run on.
+
+3
+00:00:14.470 --> 00:00:17.245
+The paper trains them with quantization-aware training.
+
+4
+00:00:17.941 --> 00:00:23.944
+Weights and activations become eight-bit integers, and the network learns to tolerate the rounding.
+
+5
+00:00:23.960 --> 00:00:31.205
+With windows of one hundred twenty-eight samples, every quantized model keeps an F1-score above zero point nine eight.
+
+6
+00:00:30.800 --> 00:00:35.990
+On a Sony Spresense microcontroller, every quantized model is smaller and faster.
+
+7
+00:00:36.686 --> 00:00:42.456
+One shrinks by seventy-two percent, and another cuts its inference time by fifty-one percent.
+
+8
+00:00:42.500 --> 00:00:48.398
+Far smaller and faster spectrum sensing, at nearly the same F1-score when the window is long enough.

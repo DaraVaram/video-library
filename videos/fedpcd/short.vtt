@@ -1,0 +1,41 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.088
+Federated averaging trains one model for many clients.
+
+2
+00:00:03.692 --> 00:00:07.570
+When their data differ, the average can leave some of them behind.
+
+3
+00:00:07.203 --> 00:00:16.630
+On CIFAR-10 with strongly skewed data, FedAvg averages forty-eight percent, while its worst tenth of clients reaches barely nineteen.
+
+4
+00:00:17.433 --> 00:00:23.192
+FedPCD keeps the average as the primary direction, and turns every client into a constraint:
+
+5
+00:00:23.888 --> 00:00:26.535
+each must make a minimum of progress.
+
+6
+00:00:26.027 --> 00:00:29.580
+When the average already satisfies everyone, nothing changes.
+
+7
+00:00:30.183 --> 00:00:36.801
+Otherwise it bends, just enough, and a short memory keeps protecting clients that sit out a round.
+
+8
+00:00:36.780 --> 00:00:45.371
+In the same setting, FedPCD reaches seventy-one point nine percent, and its worst ten percent of clients reach fifty-two point nine.
+
+9
+00:00:44.880 --> 00:00:49.338
+It has the highest global accuracy in all eighteen settings tested.
+
+10
+00:00:49.303 --> 00:00:52.600
+The average should lead, but not at any client's expense.

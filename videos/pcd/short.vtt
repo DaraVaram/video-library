@@ -1,0 +1,49 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:02.032
+Deep learning rarely has one objective.
+
+2
+00:00:02.543 --> 00:00:06.130
+Pruning pairs the task loss with a sparsity penalty.
+
+3
+00:00:06.467 --> 00:00:09.335
+One loss is the deliverable, the other a constraint.
+
+4
+00:00:10.031 --> 00:00:12.922
+Yet the usual methods treat them as equals.
+
+5
+00:00:13.047 --> 00:00:21.220
+Priority-Constrained Descent, or PCD, follows the primary gradient, and bends away from it only as much as needed.
+
+6
+00:00:20.570 --> 00:00:24.703
+Directions that make enough progress on the secondary form a half-space.
+
+7
+00:00:25.516 --> 00:00:31.205
+PCD keeps the primary gradient if it lies inside, and projects it there if not.
+
+8
+00:00:31.303 --> 00:00:40.092
+On ResNet-34 with CIFAR-100, PCD keeps seventy point nine percent accuracy with ninety percent of the parameters removed.
+
+9
+00:00:40.788 --> 00:00:43.795
+The strongest baseline reaches forty-four.
+
+10
+00:00:43.270 --> 00:00:49.029
+The pruned network is almost ten times smaller, and almost three times faster on a CPU.
+
+11
+00:00:49.833 --> 00:00:51.656
+Not all objectives are born equal.
+
+12
+00:00:52.039 --> 00:00:54.338
+Your optimizer shouldn't treat them as equals.

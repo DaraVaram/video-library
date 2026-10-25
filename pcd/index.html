@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Priority-Constrained Descent (PCD) · Video Library</title>
+<meta name="description" content="Deep learning problems rarely involve objectives that are equal in importance. A primary objective defines the goal, whilst secondary objectives, such as…" />
+<link rel="canonical" href="https://daravaram.github.io/video-library/pcd/" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Priority-Constrained Descent (PCD) · Video Library" />
+<meta property="og:description" content="Deep learning problems rarely involve objectives that are equal in importance. A primary objective defines the goal, whilst secondary objectives, such as…" />
+<meta property="og:url" content="https://daravaram.github.io/video-library/pcd/" />
+<meta property="og:image" content="https://daravaram.github.io/video-library/videos/pcd/full.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="theme-color" content="#FCFBFD" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#131117" media="(prefers-color-scheme: dark)" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%236A1B9A'/%3E%3Cpath d='M12.5 9.5v13l10-6.5z' fill='%23FCFBFD'/%3E%3C/svg%3E" />
+<link rel="stylesheet" href="../assets/style.css?v=ab50d0f7" />
+</head>
+<body class="paper">
+<div class="wrap narrow">
+  <nav class="crumbs"><a href="../">&larr; Video Library</a></nav>
+  <header class="paper-head">
+    <p class="meta">Transactions on Machine Learning Research (TMLR) · 2026</p>
+    <h1>Not All Objectives Are Born Equal: Priority-Constrained Descent for Hierarchical Multi-Objective Optimization</h1>
+    <p class="authors">Dara Varam, Mohamed I. AlHajri</p>
+    <ul class="links"><li><a href="https://openreview.net/forum?id=HT01yGHLEt" target="_blank" rel="noopener">Paper<svg class="ext" viewBox="0 0 12 12" aria-hidden="true"><path d="M3.5 8.5l5-5M4.5 3.5h4v4"/></svg></a></li><li><a href="https://arxiv.org/abs/2606.29521" target="_blank" rel="noopener">arXiv<svg class="ext" viewBox="0 0 12 12" aria-hidden="true"><path d="M3.5 8.5l5-5M4.5 3.5h4v4"/></svg></a></li><li><a href="https://daravaram.github.io/PCD/" target="_blank" rel="noopener">Project page<svg class="ext" viewBox="0 0 12 12" aria-hidden="true"><path d="M3.5 8.5l5-5M4.5 3.5h4v4"/></svg></a></li><li><a href="https://github.com/DaraVaram/priority-constrained-descent" target="_blank" rel="noopener">Code<svg class="ext" viewBox="0 0 12 12" aria-hidden="true"><path d="M3.5 8.5l5-5M4.5 3.5h4v4"/></svg></a></li></ul>
+  </header>
+  <main>
+  <section class="watch" aria-label="Videos">
+    <div class="seg" role="group" aria-label="Which cut"><button type="button" data-cut="full" aria-pressed="true">Full video <span>8:16</span></button><button type="button" data-cut="short" aria-pressed="false">Short <span>0:57</span></button><button type="button" data-cut="phone" aria-pressed="false">Phone <span>1:20</span></button></div>
+    <div class="stage">
+      <div class="screen" data-cut="full">
+        <video controls playsinline preload="metadata" crossorigin="anonymous" poster="../videos/pcd/full.jpg" aria-label="Full video, 8:16">
+        <source src="https://daravaram.github.io/PCD/assets/pcd-video.mp4" type="video/mp4" />
+        <track kind="captions" src="https://daravaram.github.io/PCD/assets/pcd-video.vtt" srclang="en" label="English" />
+        </video>
+      </div>
+      <div class="screen" data-cut="short" hidden>
+        <video controls playsinline preload="none" poster="../videos/pcd/short.jpg" aria-label="Short, 0:57">
+        <source src="../videos/pcd/short.mp4" type="video/mp4" />
+        <track kind="captions" src="../videos/pcd/short.vtt" srclang="en" label="English" />
+        </video>
+      </div>
+      <div class="screen portrait" data-cut="phone" hidden>
+        <video controls playsinline preload="none" poster="../videos/pcd/phone.jpg" aria-label="Phone, 1:20, captions burned in">
+        <source src="../videos/pcd/phone.mp4" type="video/mp4" />
+        </video>
+      </div>
+    </div>
+  </section>
+  <section class="block">
+    <h2 class="label">Abstract</h2>
+    <p class="abstract">Deep learning problems rarely involve objectives that are equal in importance. A primary objective defines the goal, whilst secondary objectives, such as sparsity, compression, or robustness constrain the solution. While existing multi-objective methods have proven effective in practice, they have a clear symmetry problem and neglect the inherent objective hierarchy built into these objective spaces. We introduce Priority-Constrained Descent (PCD), a gradient-based optimization framework designed to explicitly exploit hierarchical objective structures. PCD preserves the direction of primary descent whilst allowing for the minimal distortion necessary to guarantee progress on secondary objectives, controlled by a single τ ∈ [0, 1] that dictates the strength of the distortion. The resulting formulation is invariant to objective scaling and admits exact closed-form solutions for problems with two and three objectives. We evaluate PCD within structured network compression settings, unstructured sparsity and low-rankness, and across a variety of synthetic experiments, showing Pareto dominance and better per-objective performance with secondary progress guarantees over existing methods, further exhibiting the interpretable trade-off that τ provides.</p>
+  </section>
+  <section class="block">
+    <div class="label-row"><h2 class="label">Cite</h2><button class="copy" type="button" data-target="bib">Copy BibTeX</button></div>
+    <pre class="bib" id="bib">@article{varam2026pcd,
+  title         = {Not All Objectives Are Born Equal: Priority-Constrained
+                   Descent for Hierarchical Multi-Objective Optimization},
+  author        = {Varam, Dara and AlHajri, Mohamed I.},
+  journal       = {Transactions on Machine Learning Research},
+  issn          = {2835-8856},
+  year          = {2026},
+  url           = {https://openreview.net/forum?id=HT01yGHLEt},
+  eprint        = {2606.29521},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.LG}
+}</pre>
+  </section>
+  </main>
+  <nav class="pager" aria-label="More papers"><a class="next" href="../fedpcd/"><small>Next</small><span>FedPCD</span></a></nav>
+  <footer class="site">
+    <span>&copy; 2026 <a href="https://daravaram.github.io/">Dara Varam</a></span>
+    <span>Narration voices generated with <a href="https://elevenlabs.io" target="_blank" rel="noopener">ElevenLabs</a>.</span>
+  </footer>
+</div>
+<script src="../assets/library.js?v=c8559719"></script>
+</body>
+</html>

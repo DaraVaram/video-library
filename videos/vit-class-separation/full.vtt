@@ -1,0 +1,389 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.769
+Vision Transformers classify images remarkably well, yet how they pull classes apart inside is poorly understood.
+
+2
+00:00:07.465 --> 00:00:13.886
+This video follows class separation through a Vision Transformer, layer by layer and epoch by epoch.
+
+3
+00:00:15.150 --> 00:00:25.553
+A Vision Transformer cuts an image into patches, projects each patch to a vector, and passes the sequence through a stack of transformer blocks, followed by a classifier head.
+
+4
+00:00:25.143 --> 00:00:32.155
+The question is how the classes separate as the data moves through those blocks, and how that changes while the model trains.
+
+5
+00:00:31.837 --> 00:00:40.614
+To find out, the representations are recorded after every block and throughout training, and a single number scores how well the classes are separated.
+
+6
+00:00:40.890 --> 00:00:43.711
+For other deep networks, there is already an answer.
+
+7
+00:00:44.408 --> 00:00:52.128
+Feedforward, convolutional, residual and densely connected networks follow a law of equi-separation.
+
+8
+00:00:51.667 --> 00:00:54.987
+They separate data at a constant geometric rate through their depth:
+
+9
+00:00:55.684 --> 00:01:01.094
+the logarithm of the separation measure falls in a straight line, layer after layer.
+
+10
+00:01:00.740 --> 00:01:06.023
+That study left out transformers, whose self-attention mixes information across the whole image.
+
+11
+00:01:06.626 --> 00:01:09.935
+Does the same law hold for a Vision Transformer?
+
+12
+00:01:10.203 --> 00:01:13.988
+Take n samples from K classes, as represented at layer l.
+
+13
+00:01:14.801 --> 00:01:19.584
+Each class has its own mean, and all the samples together have a global mean.
+
+14
+00:01:19.200 --> 00:01:24.448
+The within-class scatter adds up how far each sample lies from the mean of its class.
+
+15
+00:01:24.033 --> 00:01:31.324
+The between-class scatter adds up how far each class mean lies from the global mean, weighted by the size of the class.
+
+16
+00:01:32.400 --> 00:01:40.005
+Separation fuzziness, D, is the trace of the within-class scatter times the pseudo-inverse of the between-class scatter.
+
+17
+00:01:40.701 --> 00:01:44.753
+The pseudo-inverse guards against a singular between-class scatter.
+
+18
+00:01:44.433 --> 00:01:50.795
+In words, it measures how spread out each class is, relative to how far apart the classes are.
+
+19
+00:01:50.287 --> 00:01:53.387
+As the clusters tighten and drift apart, D falls.
+
+20
+00:01:54.083 --> 00:01:57.625
+A lower D means better separated classes.
+
+21
+00:01:57.860 --> 00:02:02.678
+The study trains the standard Vision Transformer on four datasets of growing complexity:
+
+22
+00:02:03.375 --> 00:02:09.331
+MNIST, Fashion-MNIST, CIFAR-10 and CIFAR-100.
+
+23
+00:02:08.950 --> 00:02:16.299
+The default model has seven layers, an embedding dimension of sixty-four, eight attention heads and seven-by-seven patches.
+
+24
+00:02:17.112 --> 00:02:21.767
+It trains on Fashion-MNIST for one hundred fifty epochs with Adam.
+
+25
+00:02:21.383 --> 00:02:23.659
+Then one setting at a time is changed:
+
+26
+00:02:24.262 --> 00:02:34.433
+depth, embedding dimension, attention heads, MLP dimension, patch size, dropout, optimizer and learning-rate schedule.
+
+27
+00:02:34.117 --> 00:02:39.365
+Every setting is run with ten different seeds, and D is computed at every layer.
+
+28
+00:02:39.660 --> 00:02:41.901
+Here is the default model at the end of training.
+
+29
+00:02:42.504 --> 00:02:48.344
+The raw Fashion-MNIST images have a separation fuzziness of about twenty-three.
+
+30
+00:02:47.917 --> 00:02:50.994
+After the first transformer block it jumps to about ninety-seven.
+
+31
+00:02:51.504 --> 00:02:55.533
+The first block leaves the classes less separated, not more.
+
+32
+00:02:54.950 --> 00:03:01.173
+From there it decays exponentially, block by block, to about two point seven at the last layer.
+
+33
+00:03:00.780 --> 00:03:09.279
+The same spike, then decay, appears on MNIST, CIFAR-10 and CIFAR-100, at very different scales.
+
+34
+00:03:09.060 --> 00:03:11.591
+The paper calls this the Spike-Decay law.
+
+35
+00:03:12.288 --> 00:03:20.716
+From the first layer on, D of l is D of one times e to the minus gamma l, with a decay constant gamma.
+
+36
+00:03:20.333 --> 00:03:24.257
+So a Vision Transformer does not separate at a steady rate from the start.
+
+37
+00:03:24.861 --> 00:03:27.810
+It first spikes, then decays.
+
+38
+00:03:28.073 --> 00:03:30.291
+The pattern survives changes in depth.
+
+39
+00:03:30.894 --> 00:03:37.547
+With five, seven, ten, twelve or fifteen layers, fuzziness spikes at the first block and then decays.
+
+40
+00:03:37.983 --> 00:03:41.861
+Deeper models level off, so the extra layers add little separation.
+
+41
+00:03:42.557 --> 00:03:44.276
+Training accuracy agrees:
+
+42
+00:03:44.717 --> 00:03:48.571
+it stays around ninety-eight point five percent at every depth.
+
+43
+00:03:48.217 --> 00:03:56.147
+The same shape holds across MLP dimension, attention heads, dropout, optimizer, learning-rate schedule and patch size.
+
+44
+00:03:56.843 --> 00:04:01.777
+Scaled by their first-layer value, all these curves nearly coincide.
+
+45
+00:04:01.413 --> 00:04:08.611
+Across these settings, the exponential fit over the layers never scores an R-squared below zero point nine seven.
+
+46
+00:04:08.910 --> 00:04:10.860
+The pattern is there from the very start.
+
+47
+00:04:11.371 --> 00:04:18.662
+After a single epoch, fuzziness already spikes at the first block, at about three hundred twenty, and decays after it.
+
+48
+00:04:18.347 --> 00:04:22.410
+As training goes on, every layer's fuzziness falls, fast at first.
+
+49
+00:04:23.014 --> 00:04:26.195
+In the last epochs the values barely change.
+
+50
+00:04:26.483 --> 00:04:28.898
+Now follow only the last layer through training.
+
+51
+00:04:29.711 --> 00:04:38.047
+Its fuzziness starts at about six point six, drops to about three point four within ten epochs, and settles near two point seven.
+
+52
+00:04:38.423 --> 00:04:39.630
+This is the second law:
+
+53
+00:04:40.327 --> 00:04:44.170
+the last layer's fuzziness decays exponentially over the epochs.
+
+54
+00:04:44.983 --> 00:04:50.312
+D of t is D of zero times e to the minus lambda t.
+
+55
+00:04:49.967 --> 00:04:54.425
+It holds provided the first law holds, and it shows no spike.
+
+56
+00:04:53.757 --> 00:04:57.008
+The same decay appears on all four datasets.
+
+57
+00:04:57.227 --> 00:05:07.490
+The second law, too, holds across depth, MLP dimension, attention heads, dropout, optimizer, learning-rate schedule and patch size.
+
+58
+00:05:07.000 --> 00:05:10.135
+Statistical tests over the seeded runs back both laws.
+
+59
+00:05:10.831 --> 00:05:19.771
+For the first, no configuration shows a non-positive jump from the raw data to the first layer, or a poor exponential fit across the layers.
+
+60
+00:05:19.367 --> 00:05:20.783
+The second law is weaker.
+
+61
+00:05:21.387 --> 00:05:32.184
+Its exponential fits average an R-squared close to zero point nine eight, but small bumps break strict monotonicity, so a Mann-Kendall trend test often fails.
+
+62
+00:05:31.817 --> 00:05:38.086
+So both laws hold, the second sometimes loosely, as long as the model learns from the data.
+
+63
+00:05:38.367 --> 00:05:43.615
+The settings change how fast separation tightens, not whether it tightens at all.
+
+64
+00:05:43.233 --> 00:05:51.534
+Fitted per epoch, the decay rate is about one point five six with seven-by-seven patches, and zero point five six with whole-image patches.
+
+65
+00:05:52.231 --> 00:05:57.258
+The half-life grows from zero point four four to one point two four epochs.
+
+66
+00:05:56.897 --> 00:06:04.699
+A larger embedding slows it too, from one point two two at thirty-two dimensions to zero point three nine at two hundred fifty-six.
+
+67
+00:06:05.396 --> 00:06:11.247
+Cosine and step schedules sit at zero point four eight and zero point seven five.
+
+68
+00:06:11.683 --> 00:06:16.501
+CIFAR-10 and CIFAR-100 decay fastest, at about two point nine.
+
+69
+00:06:17.105 --> 00:06:25.569
+Plain SGD and ASGD almost double Adam's rate, and decrease monotonically in ten runs out of ten.
+
+70
+00:06:25.723 --> 00:06:28.451
+The paper also sets fuzziness against attention.
+
+71
+00:06:29.148 --> 00:06:37.240
+Ten models of the default setting were measured, layer by layer, for their fuzziness and for the entropy of their attention weights.
+
+72
+00:06:36.840 --> 00:06:42.552
+Fuzziness peaks right after the patch embedding, exactly where attention entropy is lowest.
+
+73
+00:06:42.190 --> 00:06:46.161
+Over the next layers, fuzziness falls while attention entropy rises.
+
+74
+00:06:46.857 --> 00:06:50.781
+The classes sharpen as the attention changes its structure.
+
+75
+00:06:51.003 --> 00:06:52.141
+There is one exception.
+
+76
+00:06:52.837 --> 00:06:58.480
+With embedding dimensions of two hundred fifty-six and five hundred twelve, both laws break.
+
+77
+00:06:58.483 --> 00:07:02.581
+At two hundred fifty-six, fuzziness jumps up and down from layer to layer.
+
+78
+00:07:03.278 --> 00:07:09.118
+At five hundred twelve it grows through the layers, to nearly seven hundred thousand at the output.
+
+79
+00:07:08.440 --> 00:07:11.842
+Over the epochs, the last layer's fuzziness no longer decays.
+
+80
+00:07:12.353 --> 00:07:13.873
+It rises.
+
+81
+00:07:13.573 --> 00:07:14.966
+Accuracy falls with it:
+
+82
+00:07:15.663 --> 00:07:22.536
+to about seventy-four percent at two hundred fifty-six, and to about ten percent, chance level, at five hundred twelve.
+
+83
+00:07:22.190 --> 00:07:24.129
+Pictures of the representations agree.
+
+84
+00:07:24.825 --> 00:07:29.667
+The clusters overlap at two hundred fifty-six and fall apart at five hundred twelve.
+
+85
+00:07:29.900 --> 00:07:33.011
+Diagnostics over ten seeded runs show why.
+
+86
+00:07:33.615 --> 00:07:41.069
+From thirty-two to two hundred fifty-six dimensions, the condition number of the within-class scatter grows by six orders of magnitude:
+
+87
+00:07:41.510 --> 00:07:44.854
+its variance squeezes into a thin subspace.
+
+88
+00:07:44.657 --> 00:07:50.079
+The effective dimensionality falls from about twelve to one, although the embedding is sixteen times larger.
+
+89
+00:07:50.775 --> 00:07:53.991
+The within-class scatter collapses to rank one.
+
+90
+00:07:53.657 --> 00:07:58.057
+Fuzziness itself drops by four orders of magnitude at five hundred twelve.
+
+91
+00:07:58.754 --> 00:08:00.472
+That is not better separation:
+
+92
+00:08:01.169 --> 00:08:07.078
+the between-class scatter is nearly singular, which breaks the full-rank assumption behind the laws.
+
+93
+00:08:06.703 --> 00:08:15.434
+A linear probe on the frozen features falls to fifteen percent accuracy, and the silhouette score turns negative from two hundred fifty-six on.
+
+94
+00:08:15.723 --> 00:08:29.052
+In short, a Vision Transformer separates classes in a Spike-Decay pattern across its layers, and its last layer's fuzziness decays exponentially over training, unless the embedding is too large for the model to learn.
+
+95
+00:08:29.500 --> 00:08:33.947
+Most of the separation happens in the early layers, so depth should be just enough.
+
+96
+00:08:34.457 --> 00:08:39.949
+And fuzziness could serve as a training monitor, or a signal to stop once it levels off.
+
+97
+00:08:39.600 --> 00:08:47.263
+Open questions include other transformer variants, other loss functions, language models, and a theory of why these laws appear.

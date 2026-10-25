@@ -1,0 +1,309 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.478
+A cognitive radio must find free channels fast, and more and more often it runs on a small, low-power device.
+
+2
+00:00:07.175 --> 00:00:14.118
+This video shows how quantization-aware training lets deep-learning spectrum sensing run on such a device.
+
+3
+00:00:16.200 --> 00:00:23.538
+Mobile and Internet-of-Things devices keep multiplying, and a static allocation of the radio spectrum no longer keeps up.
+
+4
+00:00:23.117 --> 00:00:30.420
+Cognitive radio lets secondary users borrow channels that the licensed primary users leave empty, without interfering with them.
+
+5
+00:00:31.372 --> 00:00:34.170
+These empty channels are called spectrum holes.
+
+6
+00:00:34.130 --> 00:00:39.099
+To catch as many holes as possible, a secondary user monitors a wide band at once.
+
+7
+00:00:39.796 --> 00:00:46.715
+This is wideband spectrum sensing, and because it must keep up with a high bandwidth, latency matters most.
+
+8
+00:00:47.000 --> 00:00:50.448
+The band from zero to B is divided into M sub-bands.
+
+9
+00:00:51.145 --> 00:00:57.867
+Each primary user occupies one of them, and the occupancy is a vector y of M zeros and ones.
+
+10
+00:00:57.510 --> 00:01:07.170
+The secondary user receives the sum of the primary users' signals plus Gaussian noise, and samples it into in-phase and quadrature components, I and Q.
+
+11
+00:01:06.957 --> 00:01:12.147
+A window of N samples becomes a matrix X with N rows and two columns.
+
+12
+00:01:12.843 --> 00:01:16.988
+A network f maps each window to one score per sub-band.
+
+13
+00:01:16.637 --> 00:01:19.737
+A score of at least one half marks a sub-band as occupied.
+
+14
+00:01:20.433 --> 00:01:26.714
+Sensing thus becomes an M-label classification, with up to two to the M occupancy patterns.
+
+15
+00:01:26.983 --> 00:01:31.302
+Convolutional networks learn this mapping directly from raw I/Q samples.
+
+16
+00:01:31.906 --> 00:01:41.194
+DeepSense detects several spectrum holes at once, and ParallelCNN lowers latency further by processing two halves of the window in parallel.
+
+17
+00:01:40.883 --> 00:01:42.799
+Edge devices, however, are tight.
+
+18
+00:01:43.495 --> 00:01:52.725
+Their processors run at sixty to four hundred megahertz, they have two hundred fifty-six kilobytes to four megabytes of memory, and they run on milliwatts.
+
+19
+00:01:53.167 --> 00:01:59.285
+Networks stored as thirty-two-bit floats cost memory, computation and time that such devices lack.
+
+20
+00:02:00.237 --> 00:02:04.173
+The paper closes this gap with quantization-aware training.
+
+21
+00:02:04.397 --> 00:02:08.658
+Quantization maps floating-point values onto a small set of fixed-point levels.
+
+22
+00:02:09.354 --> 00:02:14.939
+Here, weights and activations go from thirty-two-bit floats to eight-bit integers.
+
+23
+00:02:14.583 --> 00:02:23.778
+Each tensor has a scale s and a zero-point z, and a real value x is approximately s times the integer x-int minus z.
+
+24
+00:02:23.340 --> 00:02:31.281
+To quantize, x is divided by s, rounded, shifted by z, and clamped between q-min and q-max.
+
+25
+00:02:30.917 --> 00:02:34.470
+The scale spreads that range over two to the eight minus one steps.
+
+26
+00:02:35.166 --> 00:02:38.022
+A wider range means coarser steps.
+
+27
+00:02:38.270 --> 00:02:41.544
+Quantizing a model after training often costs accuracy.
+
+28
+00:02:42.241 --> 00:02:48.301
+Quantization-aware training instead simulates integer arithmetic while the model trains.
+
+29
+00:02:47.783 --> 00:02:52.810
+In the forward pass, inputs, weights and activations are fake-quantized:
+
+30
+00:02:53.193 --> 00:02:56.235
+rounded to eight bits, then turned back into floats.
+
+31
+00:02:56.932 --> 00:03:01.622
+The rounding error acts as noise, and the network learns to tolerate it.
+
+32
+00:03:02.067 --> 00:03:06.966
+Rounding has no useful gradient, so the backward pass uses the straight-through estimator.
+
+33
+00:03:07.663 --> 00:03:13.073
+The gradient passes unchanged inside the range, and is zero outside it.
+
+34
+00:03:14.150 --> 00:03:16.507
+Both networks are adapted for integer hardware.
+
+35
+00:03:17.203 --> 00:03:23.299
+LeakyReLU becomes ReLU6, which confines activations to between zero and six.
+
+36
+00:03:23.733 --> 00:03:31.814
+One-dimensional convolution and pooling layers become two-dimensional ones, so the input window is reshaped to one by N by two.
+
+37
+00:03:31.403 --> 00:03:38.346
+ParallelCNN splits the window in time into two halves, X one and X two, one per branch.
+
+38
+00:03:39.158 --> 00:03:45.242
+Both branches start from identical weights, to limit how quantization noise propagates.
+
+39
+00:03:44.990 --> 00:03:47.684
+The models are evaluated on two public datasets.
+
+40
+00:03:48.380 --> 00:03:56.693
+The SDR dataset holds about five hundred thousand recorded WiFi transmissions over four channels, so M is four.
+
+41
+00:03:56.323 --> 00:04:10.348
+The LTE dataset simulates about five hundred twenty thousand LTE-M uplink transmissions over sixteen sub-bands, with fading and noise, at signal-to-noise ratios from minus twenty to twenty decibels.
+
+42
+00:04:10.783 --> 00:04:12.536
+Both are z-score normalized.
+
+43
+00:04:13.233 --> 00:04:22.114
+This steadies training under quantization noise, and it aligns the I and Q distributions, so that one static quantizer can serve the input.
+
+44
+00:04:23.183 --> 00:04:25.795
+Next, the input needs a quantization range.
+
+45
+00:04:26.399 --> 00:04:33.075
+It can span the full range of the normalized data, or be clipped to the central ninety-nine point nine percent.
+
+46
+00:04:32.733 --> 00:04:34.405
+Clipping gives finer steps.
+
+47
+00:04:35.218 --> 00:04:43.786
+For SDR, it narrows the range from about minus ten point four to nine point two, down to about plus or minus four point five.
+
+48
+00:04:44.233 --> 00:04:53.149
+SDR models work best with the clipped range, but LTE models work best with the full range, across window sizes and noise levels.
+
+49
+00:04:52.840 --> 00:04:54.442
+The reason lies in the tails.
+
+50
+00:04:55.139 --> 00:05:03.382
+LTE's kurtosis is nine point nine eight, against four point one six for SDR, which points to heavier tails.
+
+51
+00:05:03.007 --> 00:05:05.526
+Clipping therefore costs LTE more.
+
+52
+00:05:06.223 --> 00:05:16.614
+Its information retention ratio, the variance before clipping over the variance after, is one point one six, against one point zero five for SDR.
+
+53
+00:05:16.897 --> 00:05:25.999
+Table one gives the F1-scores, averaged over five folds, for both models and both datasets, at ten decibels for LTE.
+
+54
+00:05:25.493 --> 00:05:35.153
+With windows of one hundred twenty-eight samples, every quantized model keeps an F1-score above zero point nine eight, close to its full-precision version.
+
+55
+00:05:34.797 --> 00:05:37.688
+With thirty-two samples, quantization costs more.
+
+56
+00:05:38.501 --> 00:05:46.082
+The largest drop is ParallelCNN on LTE, from zero point eight six to zero point seven one.
+
+57
+00:05:45.697 --> 00:05:54.613
+A short window carries less information about the signal, and ParallelCNN halves it again, so each branch sees only sixteen samples.
+
+58
+00:05:54.897 --> 00:06:00.319
+On LTE, the signal-to-noise ratio is also varied from minus twenty to twenty decibels.
+
+59
+00:06:01.015 --> 00:06:05.950
+Every model improves as the signal gets cleaner, and peaks at twenty decibels.
+
+60
+00:06:05.600 --> 00:06:11.649
+At minus twenty decibels every model is close to random guessing, so quantization has little to lose.
+
+61
+00:06:12.345 --> 00:06:16.467
+Its cost shows at moderate to high signal-to-noise ratios.
+
+62
+00:06:16.090 --> 00:06:26.957
+At ten and twenty decibels, ParallelCNN with thirty-two samples falls far behind its full-precision version, while every other quantized model stays within about two points.
+
+63
+00:06:26.470 --> 00:06:35.247
+ParallelCNN has few parameters and little redundancy, so the precision lost to quantization weighs more than in the larger DeepSense.
+
+64
+00:06:35.493 --> 00:06:39.231
+The best model of each configuration was deployed on a Sony Spresense:
+
+65
+00:06:39.673 --> 00:06:49.843
+a six-core ARM Cortex-M4F microcontroller at one hundred fifty-six megahertz, with one point five megabytes of memory and eight megabytes of flash.
+
+66
+00:06:49.617 --> 00:06:52.009
+Each model ran one thousand inferences.
+
+67
+00:06:52.612 --> 00:06:59.276
+In every configuration, the quantized model is smaller, faster, and draws slightly less power.
+
+68
+00:06:59.537 --> 00:07:08.918
+DeepSense on LTE with one hundred twenty-eight samples shrinks by seventy-two percent, from two hundred sixty to seventy-two point six kilobytes.
+
+69
+00:07:09.367 --> 00:07:18.934
+DeepSense on SDR with thirty-two samples cuts its inference time by fifty-one percent, from eleven point three to five point five milliseconds.
+
+70
+00:07:18.597 --> 00:07:27.513
+Power falls by at most seven point eight percent, for ParallelCNN on SDR, and stays close to that of the standard models.
+
+71
+00:07:27.167 --> 00:07:35.898
+Performance per kilobyte, the F1-score divided by the model size, rises with quantization in all eight configurations.
+
+72
+00:07:36.100 --> 00:07:39.107
+Normalization runs on the device before every inference.
+
+73
+00:07:39.804 --> 00:07:49.289
+For quantized DeepSense on SDR, it takes zero point one two milliseconds out of thirty-seven point two, with one hundred twenty-eight samples.
+
+74
+00:07:48.833 --> 00:07:53.233
+With thirty-two samples, it takes zero point zero four out of five point five seven.
+
+75
+00:07:53.930 --> 00:07:57.424
+Either way it stays below one percent of the latency.
+
+76
+00:07:57.713 --> 00:08:11.273
+In short, quantization-aware training, hardware-friendly layers and a data-driven input range make spectrum sensing models far smaller and faster, at nearly the same F1-score when the window is long enough.
+
+77
+00:08:11.717 --> 00:08:22.305
+Next steps include four-bit and mixed-precision quantization, pruning, 5G New Radio datasets, hardware-aware architecture search, and more embedded platforms.

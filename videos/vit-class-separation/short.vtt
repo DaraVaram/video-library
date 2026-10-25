@@ -1,0 +1,53 @@
+WEBVTT
+
+1
+-1:59:59,990 --> 00:00:04.634
+How does a Vision Transformer pull classes apart, layer by layer?
+
+2
+00:00:04.984 --> 00:00:06.157
+One number tracks it:
+
+3
+00:00:06.853 --> 00:00:12.287
+separation fuzziness, the spread within each class relative to the distance between classes.
+
+4
+00:00:12.983 --> 00:00:14.597
+Lower is better.
+
+5
+00:00:14.603 --> 00:00:18.225
+On Fashion-MNIST, the raw images score about twenty-three.
+
+6
+00:00:18.829 --> 00:00:22.823
+After the first block, fuzziness jumps to about ninety-seven.
+
+7
+00:00:22.400 --> 00:00:26.568
+Then it decays exponentially, block by block, to about two point seven.
+
+8
+00:00:27.265 --> 00:00:30.620
+The paper calls this the Spike-Decay law.
+
+9
+00:00:30.613 --> 00:00:36.975
+Over training, the last layer's fuzziness decays exponentially too, and settles near two point seven.
+
+10
+00:00:36.513 --> 00:00:41.784
+Both laws hold across depths, attention heads, optimizers and four datasets.
+
+11
+00:00:42.481 --> 00:00:46.544
+They break only when the embedding is too large for the model to learn.
+
+12
+00:00:47.333 --> 00:00:49.458
+So most of the separation happens early.
+
+13
+00:00:50.061 --> 00:00:54.299
+Depth should be just enough, and fuzziness could serve as a training monitor.

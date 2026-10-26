@@ -19,11 +19,11 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 CUTS = {"full": "Full Video", "short": "Short", "phone": "Phone"}
-FONTS = ("https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@400;500;600;700;800;900"
-         "&family=JetBrains+Mono:wght@400;500;700&display=swap")
-FAVICON = ("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' "
-           "height='32' fill='%231A1033'/%3E%3Crect x='3' y='3' width='26' height='26' fill='%237C3AED'/%3E%3Cpath d='M12 9v14l11-7z' "
-           "fill='%2322D3EE'/%3E%3C/svg%3E")
+FAVICON = ("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient "
+           "id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%237C3AED'/%3E%3Cstop offset='1' "
+           "stop-color='%2306B6D4'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' "
+           "fill='url(%23g)'/%3E%3Cpath d='M12.5 9.5v13l10-6.5z' fill='%23FFFFFF'/%3E%3C/svg%3E")
+CHEVRON = ('<svg class="chevron" viewBox="0 0 9 14" aria-hidden="true"><path d="M7.5 1.5 2 7l5.5 5.5"/></svg>')
 ARROW = '<svg class="ext" viewBox="0 0 12 12" aria-hidden="true"><path d="M3.5 8.5l5-5M4.5 3.5h4v4"/></svg>'
 # the visitor map, as on the PCD and FedPCD pages: rendered (so the visit is logged) but invisible
 VISITOR_MAP = """<div class="visitor-widget" aria-hidden="true">
@@ -109,11 +109,8 @@ def head(title: str, description: str, url: str, image: str, root: str) -> str:
 <meta property="og:url" content="{e(url)}" />
 <meta property="og:image" content="{e(image)}" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="theme-color" content="#F3F0FA" media="(prefers-color-scheme: light)" />
-<meta name="theme-color" content="#140D24" media="(prefers-color-scheme: dark)" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="stylesheet" href="{FONTS}" />
+<meta name="theme-color" content="#F7F6FB" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#0C0B12" media="(prefers-color-scheme: dark)" />
 <link rel="icon" href="{FAVICON}" />
 <link rel="stylesheet" href="{root}{asset("style.css")}" />
 </head>"""
@@ -155,6 +152,9 @@ def index(lib: dict) -> str:
     return f"""{head(f'{site["title"]} · {site["owner"]}', site["intro"], site["url"], site["url"] + "assets/og.jpg", "")}
 <body class="home">
 <a class="skip" href="#main">Skip to Content</a>
+<div class="bar">
+  <div class="wrap bar-inner"><span class="bar-title" aria-hidden="true">{e(site["title"])}</span></div>
+</div>
 <div class="wrap">
   <header class="masthead">
     <p class="eyebrow"><a href="{e(site["owner_url"])}">{e(site["owner"])}</a></p>
@@ -213,8 +213,13 @@ def page(lib: dict, i: int) -> str:
     return f"""{head(f'{p["name"]} · {site["title"]}', summary(p["abstract"]), url, image, "../")}
 <body class="paper">
 <a class="skip" href="#main">Skip to Content</a>
+<div class="bar">
+  <div class="wrap narrow bar-inner">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="../">{CHEVRON}{e(site["title"])}</a></nav>
+    <span class="bar-title" aria-hidden="true">{e(p["name"])}</span>
+  </div>
+</div>
 <div class="wrap narrow">
-  <nav class="crumbs"><a href="../">&larr; {e(site["title"])}</a></nav>
   <header class="paper-head">
     <p class="meta">{e(p["venue"])} · {p["year"]}</p>
     <h1>{e(p["title"])}</h1>

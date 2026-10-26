@@ -65,6 +65,7 @@
   const copy = document.querySelector(".copy");
   if (copy) {
     const label = copy.textContent;
+    const status = document.getElementById("copy-status");   // read out by screen readers
     copy.addEventListener("click", async () => {
       const text = document.getElementById(copy.dataset.target).textContent;
       try {
@@ -74,8 +75,10 @@
         range.selectNodeContents(document.getElementById(copy.dataset.target));
         getSelection().removeAllRanges();
         getSelection().addRange(range);
+        if (status) status.textContent = "Couldn't copy automatically. The BibTeX is selected: press Ctrl+C or ⌘C to copy it.";
         return;
       }
+      if (status) status.textContent = "BibTeX copied to the clipboard.";
       copy.textContent = "Copied";
       copy.classList.add("done");
       setTimeout(() => { copy.textContent = label; copy.classList.remove("done"); }, 1600);

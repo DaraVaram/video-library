@@ -4,9 +4,45 @@
     "owner": "Dara Varam",
     "owner_url": "https://daravaram.github.io/",
     "url": "https://daravaram.github.io/video-library/",
-    "intro": "Narrated explainers of research papers. Each paper comes in three cuts: the full video, a one-minute short and a 90-second phone video. Watch one, then read the paper."
+    "intro": "Narrated explainers of research papers. Every paper has a full video, and most also come as a one-minute short and a 90-second phone video. Watch one, then read the paper."
   },
   "papers": [
+    {
+      "slug": "biowsp",
+      "name": "Mixed Signals",
+      "title": "Mixed Signals: Weight-Space Programming for EEG and ECG",
+      "authors": ["Dara Varam", "Taraneh Aminosharieh Najafi", "David Atienza"],
+      "venue": "arXiv preprint",
+      "venue_short": "arXiv",
+      "year": 2026,
+      "links": [
+        {"label": "arXiv", "url": "https://arxiv.org/abs/2611.13758"},
+        {"label": "Project Page", "url": "https://daravaram.github.io/BioWSP/"}
+      ],
+      "abstract": "Weight-space programming allows language models to read a trained neural network's weights and edit them. This opens the door to “training” by reasoning rather than through gradient descent. Prior work has demonstrated its functionality and promise for game-playing networks and fixing specific failures in language models, even extending to diffusion models. In this work, we present its applicability to models trained on biosignal data, specifically EEG and ECG data. We show that frontier models are not only able to debug specific faults planted in biosignal-based models without being told what these faults are, but are even capable of writing all the weights of a network from scratch, given only the architecture, the task, and a minimal set of training subjects. In particular, in one set of experiments, a language model was able to match standard gradient-descent training using 6× fewer training subjects, through reasoning alone and without any gradient descent step. Networks written by Claude Opus 5.5 also scored higher than classic hand-crafted EEG pipelines (alpha band power, and common spatial patterns with linear discriminant analysis) when built from the same 5 subjects. We also highlight some of the limitations, which include the inability of language models to improve already well-trained classification models, and their incapacity to reliably recognize, from the weights alone, the task a network was trained on. Overall, our results indicate that weight-space programming can be useful for small networks, such as those deployed on edge devices and wearables, but the concept still requires further investigation before it can be used in practice.",
+      "bibtex": "@misc{varam2026mixedsignals,\n  title         = {Mixed Signals: Weight-Space Programming for {EEG} and {ECG}},\n  author        = {Varam, Dara and Aminosharieh Najafi, Taraneh and Atienza, David},\n  year          = {2026},\n  eprint        = {2611.13758},\n  archivePrefix = {arXiv},\n  primaryClass  = {cs.LG},\n  url           = {https://arxiv.org/abs/2611.13758}\n}",
+      "videos": {
+        "full": {
+          "src": "https://daravaram.github.io/BioWSP/media/mixed-signals-video.mp4",
+          "captions": "https://daravaram.github.io/BioWSP/media/mixed-signals-video.vtt",
+          "poster": "videos/biowsp/full.jpg",
+          "seconds": 339.9
+        }
+      },
+      "chapters": [
+        ["0:00", "The question"],
+        ["0:10", "Weights written by reasoning"],
+        ["0:35", "Why biosignals"],
+        ["1:02", "The test"],
+        ["1:33", "Where it fails"],
+        ["1:57", "Repairing a planted fault"],
+        ["2:36", "Finding a hidden cause"],
+        ["3:24", "Switching the shortcut off"],
+        ["3:56", "A network from zero"],
+        ["4:32", "Five samples against thirty"],
+        ["5:11", "Mixed signals"]
+      ]
+    },
     {
       "slug": "pcd",
       "name": "Priority-Constrained Descent (PCD)",

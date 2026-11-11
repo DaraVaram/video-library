@@ -3,9 +3,9 @@
 
     python3 build.py
 
-Standard library only. Every local file papers.json names must exist. A local video's length is read from its
-MP4 header; a video played from another site (the full PCD and FedPCD videos, from their project pages) gives
-its length in papers.json as "seconds".
+Standard library only. Every local file papers.json names must exist. A local video's length is read from its MP4
+header; a video played from another site (the full PCD, FedPCD and Mixed Signals videos, from their project
+pages) gives its length in papers.json as "seconds".
 """
 from __future__ import annotations
 
@@ -197,6 +197,8 @@ def page(lib: dict, i: int) -> str:
     url = site["url"] + p["slug"] + "/"
     tabs = "".join(f'<button type="button" data-cut="{c}" aria-pressed="{"true" if c == "full" else "false"}">'
                    f'{CUTS[c]} <span>{clock(v[c]["seconds"])}</span></button>' for c in CUTS if c in v)
+    # a paper with only its full video gets no switcher
+    seg = f'\n    <div class="seg" role="group" aria-label="Which cut">{tabs}</div>' if len(v) > 1 else ""
     screens = "\n".join(screen(c, v[c], "../") for c in CUTS if c in v)
     links = "".join(f'<li><a href="{e(l["url"])}" target="_blank" rel="noopener">{e(l["label"])}{ARROW}</a></li>'
                     for l in p["links"])
@@ -227,8 +229,7 @@ def page(lib: dict, i: int) -> str:
     <ul class="links">{links}</ul>
   </header>
   <main id="main">
-  <section class="watch" aria-label="Videos">
-    <div class="seg" role="group" aria-label="Which cut">{tabs}</div>
+  <section class="watch" aria-label="Videos">{seg}
     <div class="stage">
 {screens}
     </div>{chapters}

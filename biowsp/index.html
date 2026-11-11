@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mixed Signals · Video Library</title>
+<meta name="description" content="Weight-space programming allows language models to read a trained neural network&#x27;s weights and edit them. This opens the door to “training” by reasoning…" />
+<link rel="canonical" href="https://daravaram.github.io/video-library/biowsp/" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Mixed Signals · Video Library" />
+<meta property="og:description" content="Weight-space programming allows language models to read a trained neural network&#x27;s weights and edit them. This opens the door to “training” by reasoning…" />
+<meta property="og:url" content="https://daravaram.github.io/video-library/biowsp/" />
+<meta property="og:image" content="https://daravaram.github.io/video-library/videos/biowsp/full.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="theme-color" content="#F7F6FB" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#0C0B12" media="(prefers-color-scheme: dark)" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%237C3AED'/%3E%3Cstop offset='1' stop-color='%2306B6D4'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Cpath d='M12.5 9.5v13l10-6.5z' fill='%23FFFFFF'/%3E%3C/svg%3E" />
+<link rel="stylesheet" href="../assets/style.css?v=7b235a89" />
+</head>
+<body class="paper">
+<a class="skip" href="#main">Skip to Content</a>
+<div class="bar">
+  <div class="wrap narrow bar-inner">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="../"><svg class="chevron" viewBox="0 0 9 14" aria-hidden="true"><path d="M7.5 1.5 2 7l5.5 5.5"/></svg>Video Library</a></nav>
+    <span class="bar-title" aria-hidden="true">Mixed Signals</span>
+  </div>
+</div>
+<div class="wrap narrow">
+  <header class="paper-head">
+    <p class="meta">arXiv preprint · 2026</p>
+    <h1>Mixed Signals: Weight-Space Programming for EEG and ECG</h1>
+    <p class="authors">Dara Varam, Taraneh Aminosharieh Najafi, David Atienza</p>
+    <ul class="links"><li><a href="https://arxiv.org/abs/2611.13758" target="_blank" rel="noopener">arXiv<svg class="ext" viewBox="0 0 12 12" aria-hidden="true"><path d="M3.5 8.5l5-5M4.5 3.5h4v4"/></svg></a></li><li><a href="https://daravaram.github.io/BioWSP/" target="_blank" rel="noopener">Project Page<svg class="ext" viewBox="0 0 12 12" aria-hidden="true"><path d="M3.5 8.5l5-5M4.5 3.5h4v4"/></svg></a></li></ul>
+  </header>
+  <main id="main">
+  <section class="watch" aria-label="Videos">
+    <div class="stage">
+      <div class="screen" data-cut="full">
+        <video controls playsinline preload="metadata" crossorigin="anonymous" poster="../videos/biowsp/full.jpg" aria-label="Full Video, 5:39">
+        <source src="https://daravaram.github.io/BioWSP/media/mixed-signals-video.mp4" type="video/mp4" />
+        <track kind="captions" src="https://daravaram.github.io/BioWSP/media/mixed-signals-video.vtt" srclang="en" label="English" />
+        </video>
+      </div>
+    </div>
+    <ol class="chapters" aria-label="Chapters of the full video"><li><button type="button" data-t="0"><time>0:00</time>The question</button></li><li><button type="button" data-t="10"><time>0:10</time>Weights written by reasoning</button></li><li><button type="button" data-t="35"><time>0:35</time>Why biosignals</button></li><li><button type="button" data-t="62"><time>1:02</time>The test</button></li><li><button type="button" data-t="93"><time>1:33</time>Where it fails</button></li><li><button type="button" data-t="117"><time>1:57</time>Repairing a planted fault</button></li><li><button type="button" data-t="156"><time>2:36</time>Finding a hidden cause</button></li><li><button type="button" data-t="204"><time>3:24</time>Switching the shortcut off</button></li><li><button type="button" data-t="236"><time>3:56</time>A network from zero</button></li><li><button type="button" data-t="272"><time>4:32</time>Five samples against thirty</button></li><li><button type="button" data-t="311"><time>5:11</time>Mixed signals</button></li></ol>
+  </section>
+  <section class="block">
+    <h2 class="label">Abstract</h2>
+    <p class="abstract">Weight-space programming allows language models to read a trained neural network&#x27;s weights and edit them. This opens the door to “training” by reasoning rather than through gradient descent. Prior work has demonstrated its functionality and promise for game-playing networks and fixing specific failures in language models, even extending to diffusion models. In this work, we present its applicability to models trained on biosignal data, specifically EEG and ECG data. We show that frontier models are not only able to debug specific faults planted in biosignal-based models without being told what these faults are, but are even capable of writing all the weights of a network from scratch, given only the architecture, the task, and a minimal set of training subjects. In particular, in one set of experiments, a language model was able to match standard gradient-descent training using 6× fewer training subjects, through reasoning alone and without any gradient descent step. Networks written by Claude Opus 5.5 also scored higher than classic hand-crafted EEG pipelines (alpha band power, and common spatial patterns with linear discriminant analysis) when built from the same 5 subjects. We also highlight some of the limitations, which include the inability of language models to improve already well-trained classification models, and their incapacity to reliably recognize, from the weights alone, the task a network was trained on. Overall, our results indicate that weight-space programming can be useful for small networks, such as those deployed on edge devices and wearables, but the concept still requires further investigation before it can be used in practice.</p>
+  </section>
+  <section class="block">
+    <div class="label-row"><h2 class="label">Cite</h2><button class="copy" type="button" data-target="bib">Copy BibTeX</button></div>
+    <pre class="bib" id="bib" translate="no">@misc{varam2026mixedsignals,
+  title         = {Mixed Signals: Weight-Space Programming for {EEG} and {ECG}},
+  author        = {Varam, Dara and Aminosharieh Najafi, Taraneh and Atienza, David},
+  year          = {2026},
+  eprint        = {2611.13758},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.LG},
+  url           = {https://arxiv.org/abs/2611.13758}
+}</pre>
+    <p class="visually-hidden" id="copy-status" role="status" aria-live="polite"></p>
+  </section>
+  </main>
+  <nav class="pager" aria-label="More papers"><a class="next" href="../pcd/"><small>Next</small><span>Priority-Constrained Descent (PCD)</span></a></nav>
+  <footer class="site">
+    <span>&copy; 2026 <a href="https://daravaram.github.io/">Dara Varam</a></span>
+    <span>Narration voices generated with <a href="https://elevenlabs.io" target="_blank" rel="noopener" translate="no">ElevenLabs</a>.</span>
+  </footer>
+</div>
+<div class="visitor-widget" aria-hidden="true">
+<script type="text/javascript" id="mapmyvisitors" src="https://visitormap.visitormap.workers.dev/map.js?d=vQcILETVswZfTonNsgaogfZ0&cl=171221&co=0e0b13&ct=a79bbd&w=a"></script>
+</div>
+<script src="../assets/library.js?v=a1c0e005"></script>
+</body>
+</html>

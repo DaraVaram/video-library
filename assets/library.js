@@ -38,10 +38,10 @@
   }
 
   const seg = document.querySelector(".seg");
+  const chapters = document.querySelector(".chapters");
   if (seg) {
     const buttons = [...seg.querySelectorAll("button")];
     const screens = [...document.querySelectorAll(".screen")];
-    const chapters = document.querySelector(".chapters");
     const cuts = buttons.map((b) => b.dataset.cut);
     const thumb = document.createElement("span");      // slides under the chosen cut
     thumb.className = "seg-thumb";
@@ -66,21 +66,22 @@
     addEventListener("hashchange", () => show(location.hash.slice(1)));
     show(location.hash.slice(1));
     requestAnimationFrame(() => requestAnimationFrame(() => seg.classList.add("ready")));
+  }
 
-    if (chapters) {
-      const video = document.querySelector('.screen[data-cut="full"] video');
-      const items = [...chapters.querySelectorAll("button")];
-      items.forEach((b) => b.addEventListener("click", () => {
-        video.currentTime = Number(b.dataset.t);
-        video.play().catch(() => {});
-        video.scrollIntoView({ block: "nearest", behavior: still ? "auto" : "smooth" });
-      }));
-      video.addEventListener("timeupdate", () => {
-        const now = video.currentTime + 0.25;
-        const current = items.filter((b) => Number(b.dataset.t) <= now).pop();
-        items.forEach((b) => b.classList.toggle("on", b === current));
-      });
-    }
+  // the chapters of the full video, with or without a switcher (a paper may have only its full video)
+  if (chapters) {
+    const video = document.querySelector('.screen[data-cut="full"] video');
+    const items = [...chapters.querySelectorAll("button")];
+    items.forEach((b) => b.addEventListener("click", () => {
+      video.currentTime = Number(b.dataset.t);
+      video.play().catch(() => {});
+      video.scrollIntoView({ block: "nearest", behavior: still ? "auto" : "smooth" });
+    }));
+    video.addEventListener("timeupdate", () => {
+      const now = video.currentTime + 0.25;
+      const current = items.filter((b) => Number(b.dataset.t) <= now).pop();
+      items.forEach((b) => b.classList.toggle("on", b === current));
+    });
   }
 
   const copy = document.querySelector(".copy");
